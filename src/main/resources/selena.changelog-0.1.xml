@@ -7,10 +7,13 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <!-- <preConditions>
-        <runningAs username="sa"/>
-    </preConditions> -->
+    <changeSet
+        id="[BD-2554] Hello Liquibase" author="r.cavazin" dbms='mssql'>
 
-    <include file="selena.changelog-0.1.xml" relativeToChangelogFile="true"/>
-
+        <sql    endDelimiter=";"
+                splitStatements="true"
+                stripComments="true">
+                select * from selena.util.event_message_queue;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

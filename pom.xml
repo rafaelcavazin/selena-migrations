@@ -10,13 +10,50 @@
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>3.5.3</version>
-				<configuration>
-					<propertyFile>src/main/resources/${environment}/liquibase.properties</propertyFile>
-					<changelogSchemaName>util</changelogSchemaName>
-					<databaseChangeLogTableName>change_log</databaseChangeLogTableName>
-					<databaseChangeLogLockTableName>change_log_lock</databaseChangeLogLockTableName>
-					<changeLogFile>src/main/resources/selena.changelog-master.xml</changeLogFile>
-				</configuration>
+				<executions>
+	        <execution>
+	            <id>development</id>
+	            <phase>process-resources</phase>
+								<configuration>
+									<propertyFile>src/main/resources/development/liquibase.properties</propertyFile>
+									<changelogSchemaName>util</changelogSchemaName>
+									<databaseChangeLogTableName>change_log</databaseChangeLogTableName>
+									<databaseChangeLogLockTableName>change_log_lock</databaseChangeLogLockTableName>
+									<changeLogFile>src/main/resources/selena.changelog-master.xml</changeLogFile>
+								</configuration>
+	            <goals>
+	                <goal>update</goal>
+	            </goals>
+	        </execution>
+					<execution>
+	            <id>acceptance</id>
+	            <phase>process-resources</phase>
+								<configuration>
+									<propertyFile>${env.SELENA_MIGRATIONS_UAT}</propertyFile>
+									<changelogSchemaName>util</changelogSchemaName>
+									<databaseChangeLogTableName>change_log</databaseChangeLogTableName>
+									<databaseChangeLogLockTableName>change_log_lock</databaseChangeLogLockTableName>
+									<changeLogFile>src/main/resources/selena.changelog-master.xml</changeLogFile>
+								</configuration>
+	            <goals>
+	                <goal>update</goal>
+	            </goals>
+	        </execution>
+					<execution>
+	            <id>production</id>
+	            <phase>process-resources</phase>
+								<configuration>
+									<propertyFile>${env.SELENA_MIGRATIONS_PROD}</propertyFile>
+									<changelogSchemaName>util</changelogSchemaName>
+									<databaseChangeLogTableName>change_log</databaseChangeLogTableName>
+									<databaseChangeLogLockTableName>change_log_lock</databaseChangeLogLockTableName>
+									<changeLogFile>src/main/resources/selena.changelog-master.xml</changeLogFile>
+								</configuration>
+	            <goals>
+	                <goal>update</goal>
+	            </goals>
+	        </execution>
+    		</executions>
 			</plugin>
 		</plugins>
 	</build>
